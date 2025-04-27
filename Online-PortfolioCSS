@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  font-family: 'Press Start 2P', cursive;
+  background-color: #0d0d0d;
+  color: #ffffff;
+}
+
+header {
+  background: linear-gradient(90deg, #ff66cc, #66ccff);
+  padding: 15px;
+  text-align: center;
+  font-size: 1rem;
+  text-shadow: 2px 2px #000;
+}
+
+.hero {
+  text-align: center;
+  padding: 20px;
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 0 20px #ff66cc;
+}
+
+footer {
+  background-color: #222;
+  text-align: center;
+  padding: 10px;
+  font-size: 0.7rem;
+  margin-top: 30px;
+}
