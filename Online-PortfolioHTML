@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sascha Nestlinger - Online Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="logo">Sascha Nestlinger</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <img src="LandingPage.png" alt="Landing Page" usemap="#socialmap" class="hero-image">
+
+      <map name="socialmap">
+        <!-- Instagram Bereich -->
+        <area shape="rect" coords="90,190,190,290" href="https://www.instagram.com/teamblaubawue" target="_blank" alt="Instagram">
+        
+        <!-- YouTube Bereich -->
+        <area shape="rect" coords="90,320,190,390" href="https://www.youtube.com/@Nestli" target="_blank" alt="YouTube">
+      </map>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Sascha Nestlinger</p>
+  </footer>
+
+</body>
+</html>
