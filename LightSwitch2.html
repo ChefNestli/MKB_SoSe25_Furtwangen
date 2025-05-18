@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Neumorphischer Lichtschalter</title>
+  <style>
+    body {
+      background: #e0e0e0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: sans-serif;
+      margin: 0;
+    }
+
+    .container {
+      width: 300px;
+      height: 300px;
+      border-radius: 30px;
+      background-color: yellow;
+      box-shadow: 10px 10px 20px #bebebe,
+                  -10px -10px 20px #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.5s;
+    }
+
+    .circle {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      box-shadow: inset 8px 8px 12px #bebebe,
+                  inset -8px -8px 12px #ffffff;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 160px;
+      height: 160px;
+      transform: rotate(-90deg);
+    }
+
+    circle.bg {
+      fill: none;
+      stroke: #ccc;
+      stroke-width: 8;
+    }
+
+    circle.fg {
+      fill: none;
+      stroke: #444;
+      stroke-width: 8;
+      stroke-linecap: round;
+      transition: stroke-dasharray 0.3s ease;
+    }
+
+    .mode-label {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" id="lightbox">
+  <div class="circle" id="button">
+    <svg>
+      <circle class="bg" cx="80" cy="80" r="60" />
+      <circle class="fg" cx="80" cy="80" r="60" id="progress" />
+    </svg>
+  </div>
+  <div class="mode-label" id="modeLabel">Modus: Lesen</div>
+</div>
+
+<script>
+  const button = document.getElementById('button');
+  const lightbox = document.getElementById('lightbox');
+  const progress = document.getElementById('progress');
+  const modeLabel = document.getElementById('modeLabel');
+
+  let lightOn = true;
+  let brightness = 1; // 0.1 - 1.0
+  let pressTimer = null;
+  let isLongPress = false;
+
+  const modes = [
+    { name: 'Lesen', color: 'yellow' },
+    { name: 'Yoga', color: 'lightgreen' },
+    { name: 'Party', color: 'hotpink' }
+  ];
+  let currentMode = 0;
+
+  const radius = 60;
+  const circumference = 2 * Math.PI * radius;
+
+  progress.style.strokeDasharray = `${circumference}`;
+  progress.style.strokeDashoffset = `${circumference}`;
+
+  function updateUI() {
+    lightbox.style.backgroundColor = lightOn ? modes[currentMode].color : '#e0e0e0';
+    modeLabel.textContent = `Modus: ${modes[currentMode].name}`;
+
+    const offset = circumference * (1 - brightness);
+    progress.style.strokeDashoffset = lightOn ? offset : circumference;
+    progress.style.stroke = lightOn ? '#444' : '#aaa';
+  }
+
+  button.addEventListener('click', () => {
+    if (!isLongPress) {
+      lightOn = !lightOn;
+      updateUI();
+    }
+  });
+
+  button.addEventListener('mousedown', () => {
+    isLongPress = false;
+    pressTimer = setTimeout(() => {
+      isLongPress = true;
+      currentMode = (currentMode + 1) % modes.length;
+      updateUI();
+    }, 3000);
+  });
+
+  button.addEventListener('mouseup', () => {
+    clearTimeout(pressTimer);
+  });
+
+  button.addEventListener('mouseleave', () => {
+    clearTimeout(pressTimer);
+  });
+
+  button.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    if (e.deltaY < 0) {
+      brightness = Math.min(1, brightness + 0.05);
+    } else {
+      brightness = Math.max(0.1, brightness - 0.05);
+    }
+    updateUI();
+  });
+
+  updateUI();
+</script>
+
+</body>
+</html>
